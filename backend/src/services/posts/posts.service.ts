@@ -1,24 +1,49 @@
 import { Injectable } from "@nestjs/common";
+import { Post } from "src/models/post";
+import POSTS from "../../data/posts.json";
 
 @Injectable()
 export class PostsService {
-  create(): string {
-    return "This action adds a new post";
-  }
+    private posts: Post[] = [];
+    private nextId = 1;
 
-  getAll(): string {
-    return "This action returns all posts";
-  }
+    constructor() {
+        this.posts = POSTS;
+    }
+    create(post: Post): boolean {
+        const lastId = this.posts[this.posts.length - 1].id;
 
-  get(id: string): string {
-    return `This action returns a #${id} post`;
-  }
+        this.posts.push({
+            ...post,
+            id: lastId + 1
+        });
 
-  update(id: string): string {
-    return `This action updates a #${id} post`;
-  }
+        return true;
+    }
 
-  delete(id: string): string {
-    return `This action removes a #${id} post`;
-  }
+    getAll(): Post[] {
+        return this.posts;
+    }
+
+    get(id: number): Post | undefined {
+        return this.posts.find(post => post.id == id);
+    }
+
+    update(id: number, post: Post): boolean {
+        const index = this.posts.findIndex(post => post.id == id);
+        if (index !== -1) {
+            this.posts[index] = post;
+            return true;
+        }
+        return false;
+    }
+
+    delete(id: number): boolean {
+        const index = this.posts.findIndex(post => post.id == id);
+        if (index !== -1) {
+            this.posts.splice(index, 1);
+            return true;
+        }
+        return false;
+    }
 }

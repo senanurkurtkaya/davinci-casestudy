@@ -3,6 +3,7 @@ import { Home } from "./pages/home/home";
 import { Users } from "./pages/users/users";
 import { Posts } from "./pages/posts/posts";
 import Layout from "./layout";
+import { NotFound } from "./pages/notFound/notFound";
 
 export const routes = createBrowserRouter([
     {
@@ -17,6 +18,10 @@ export const routes = createBrowserRouter([
             {
                 path: "/posts",
                 Component: Posts
+            },
+            {
+                path: "*",
+                Component: NotFound
             }
         ]
     },

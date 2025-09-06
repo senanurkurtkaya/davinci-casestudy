@@ -1,6 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { User } from "src/models/user";
 import USERS from '../../data/users.json';
+import { PaginationResult } from "src/models/pagination.result";
 
 
 @Injectable()
@@ -16,8 +17,14 @@ export class UsersService {
         return true;
     }
 
-    getAll(): User[] {
-        return this.users;
+    getAll(page: number, pageSize: number): PaginationResult<User> { 
+        const totalRowCount = this.users.length;
+        const data = this.users.slice(page * pageSize, (page + 1) * pageSize)
+
+        return {
+            totalRowCount,
+            data
+        };
     }
 
     get(id: number): User | undefined {
