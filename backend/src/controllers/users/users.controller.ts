@@ -4,7 +4,7 @@ import type { User } from 'src/models/user';
 import { UsersService } from '../../services/users/users.service';
 import { CreateUserDto } from './dto/create.user.dto';
 import type { PaginationResult } from 'src/models/pagination.result';
-import type { PaginationParams } from 'src/models/pagination.params';
+import type { PaginationParams, PaginationParamsRequest } from 'src/models/pagination.params';
 
 @Controller('users')
 export class UsersController {
@@ -16,7 +16,11 @@ export class UsersController {
     }
 
     @Get()
-    getAll(@Query() paginationParams: PaginationParams): PaginationResult<User> {
+    getAll(@Query() paginationParamsRequest: PaginationParamsRequest): PaginationResult<User> {
+        const paginationParams: PaginationParams = {
+            page: parseInt(paginationParamsRequest.page),
+            pageSize: parseInt(paginationParamsRequest.pageSize)
+        }
 
         return this.usersService.getAll(paginationParams.page, paginationParams.pageSize);
     }

@@ -1,6 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { Post } from "src/models/post";
 import POSTS from "../../data/posts.json";
+import { PaginationResult } from "src/models/pagination.result";
 
 @Injectable()
 export class PostsService {
@@ -21,8 +22,18 @@ export class PostsService {
         return true;
     }
 
-    getAll(): Post[] {
-        return this.posts;
+    getAll(page: number, pageSize: number): PaginationResult<Post> {
+        const totalRowCount = this.posts.length;
+        console.log("page * pageSize", page * pageSize);
+
+        console.log("(page + 1) * pageSize", (page + 1) * pageSize)
+        console.log(typeof page)
+
+        const data = this.posts.slice(page * pageSize, (page + 1) * pageSize)
+        return {
+            totalRowCount,
+            data
+        };
     }
 
     get(id: number): Post | undefined {
