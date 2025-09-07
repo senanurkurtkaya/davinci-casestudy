@@ -2,16 +2,16 @@ import { Injectable } from "@nestjs/common";
 import { Post } from "src/models/post";
 import POSTS from "../../data/posts.json";
 import { PaginationResult } from "src/models/pagination.result";
+import { CreatePostDto } from "src/controllers/posts/dto/create.post.dto";
 
 @Injectable()
 export class PostsService {
     private posts: Post[] = [];
-    private nextId = 1;
-
+ 
     constructor() {
         this.posts = POSTS;
     }
-    create(post: Post): boolean {
+    create(post: CreatePostDto): boolean {
         const lastId = this.posts[this.posts.length - 1].id;
 
         this.posts.push({
@@ -24,10 +24,6 @@ export class PostsService {
 
     getAll(page: number, pageSize: number): PaginationResult<Post> {
         const totalRowCount = this.posts.length;
-        console.log("page * pageSize", page * pageSize);
-
-        console.log("(page + 1) * pageSize", (page + 1) * pageSize)
-        console.log(typeof page)
 
         const data = this.posts.slice(page * pageSize, (page + 1) * pageSize)
         return {

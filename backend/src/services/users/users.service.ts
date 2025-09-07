@@ -2,6 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { User } from "src/models/user";
 import USERS from '../../data/users.json';
 import { PaginationResult } from "src/models/pagination.result";
+import { CreateUserDto } from "src/controllers/users/dto/create.user.dto";
 
 
 @Injectable()
@@ -11,13 +12,17 @@ export class UsersService {
         this.users = USERS;
     }
 
-    create(user:User): boolean {
-        // TODO: id should be generated
-        this.users.push(user);
+    create(user: CreateUserDto): boolean {
+        const lastId = this.users[this.users.length - 1].id;
+
+        this.users.push({
+            ...user,
+            id: lastId + 1
+        });
         return true;
     }
 
-    getAll(page: number, pageSize: number): PaginationResult<User> { 
+    getAll(page: number, pageSize: number): PaginationResult<User> {
         const totalRowCount = this.users.length;
         const data = this.users.slice(page * pageSize, (page + 1) * pageSize)
 

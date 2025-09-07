@@ -9,5 +9,5 @@ export class UpdatePostDto {
   @IsOptional()
   @IsString()
   @Length(3, 2000)
-  body?: string;
+  description?: string;
 }

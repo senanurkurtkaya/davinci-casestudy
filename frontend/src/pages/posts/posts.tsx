@@ -74,7 +74,9 @@ export function Posts() {
     }, []);
 
     return <div>
+        <div className="flex justify-end my-6"><a href="/post/create" className="btn btn-soft btn-primary">Create Post</a></div>
         <div className="overflow-x-auto rounded-box border border-base-content/5 bg-base-100">
+            
             <table className="table">
                 <thead>
                     <tr>

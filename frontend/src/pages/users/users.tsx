@@ -74,6 +74,9 @@ export function Users() {
     }, [pageSize]);
 
     return <div>
+        <div className="flex justify-end my-6">
+            <a href="/user/create" className="btn btn-soft btn-primary">Create User</a>
+        </div>
         <div className="overflow-x-auto rounded-box border border-base-content/5 bg-base-100">
             <table className="table">
                 <thead>
@@ -87,7 +90,7 @@ export function Users() {
                 <tbody>
                     {users.map(user => {
                         return <tr key={user.id}>
-                            <th>{user.id}</th>
+                            <th><a href={`/users/${user.id}`}>{user.id}</a></th>
                             <td>{user.email}</td>
                             <td>{user.username}</td>
                             <td>{user.name}</td>

@@ -12,7 +12,7 @@ export class UsersController {
 
     @Post()
     create(@Body() dto: CreateUserDto) {
-        return this.usersService.create(dto as any);
+        return this.usersService.create(dto);
     }
 
     @Get()
@@ -27,9 +27,9 @@ export class UsersController {
 
     @Get(":id")
     get(@Param('id') id: number): User | undefined {
-        console.log("Getting user with id:", id);
         return this.usersService.get(id);
     }
+    
     @Put(":id")
     update(@Param('id') id: number, @Body() user: User): boolean {
 
