@@ -75,7 +75,7 @@ export function Users() {
 
     return <div>
         <div className="flex justify-end my-6">
-            <a href="/user/create" className="btn btn-soft btn-primary">Create User</a>
+            <a href="/users/create" className="btn btn-soft btn-primary">Create User</a>
         </div>
         <div className="overflow-x-auto rounded-box border border-base-content/5 bg-base-100">
             <table className="table">
@@ -85,6 +85,7 @@ export function Users() {
                         <th>Email</th>
                         <th>Username</th>
                         <th>Name</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -94,6 +95,15 @@ export function Users() {
                             <td>{user.email}</td>
                             <td>{user.username}</td>
                             <td>{user.name}</td>
+                            <td>
+                                <div className="dropdown">
+                                    <button  role="button" className="btn">Actions</button>
+                                    <ul  className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+                                        <li><a href={`/users/${user.id}/update`}>Update</a></li>
+                                        <li><a href={`/users/${user.id}`}>Details</a></li>
+                                    </ul>
+                                </div>
+                            </td>
                         </tr>
                     })}
                 </tbody>

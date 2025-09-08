@@ -53,4 +53,8 @@ export class PostsService {
         }
         return false;
     }
+    getUsersPosts(postId:number):string {
+        return`This action returns all posts for post #${postId}`;
+
+    }
 }

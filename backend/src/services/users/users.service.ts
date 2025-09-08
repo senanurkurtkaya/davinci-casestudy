@@ -3,6 +3,8 @@ import { User } from "src/models/user";
 import USERS from '../../data/users.json';
 import { PaginationResult } from "src/models/pagination.result";
 import { CreateUserDto } from "src/controllers/users/dto/create.user.dto";
+import { UserDto } from "src/controllers/users/dto/user.dto";
+import { UpdateUserDto } from "src/controllers/users/dto/update.user.dto";
 
 
 @Injectable()
@@ -36,7 +38,8 @@ export class UsersService {
         const user = this.users.find(user => user.id == id);
         return user;
     }
-    update(id: number, userData: User): boolean {
+
+    update(id: number, userData: UpdateUserDto): boolean {
         const user = this.users.find(user => user.id == id);
         if (user) {
             user.name = userData.name;
@@ -46,6 +49,7 @@ export class UsersService {
         }
         return false;
     }
+
     delete(id: number): boolean {
         const userIndex = this.users.findIndex(user => user.id == id);
         if (userIndex !== -1) {
@@ -54,7 +58,13 @@ export class UsersService {
         }
         return false;
     }
-    getUserPosts(userId: number): string {
-        return `This action returns all posts for user #${userId}`;
+
+    getAllWithIdAndName(): UserDto[] {
+        return this.users.map(user => {
+            return {
+                id: user.id,
+                name: user.name
+            }
+        });
     }
 }

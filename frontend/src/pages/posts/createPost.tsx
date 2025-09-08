@@ -1,9 +1,12 @@
-import type { FormEvent } from "react";
+import { useState, type FormEvent } from "react";
 import { useNavigate } from "react-router"
 import type { CreatePost } from "../../models/createPost";
+import { UserDropdown } from "./components/userDropdown";
+import type { UserDropdownModel } from "../../models/userDropdownModel";
 
 export function CreatePost() {
     const navigate = useNavigate();
+    const [selectedUser, setSelectedUser] = useState<UserDropdownModel | undefined>();
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
@@ -12,9 +15,6 @@ export function CreatePost() {
         const title = formData.get("title")?.toString();
         const description = formData.get("description")?.toString();
 
-        console.log(userId);
-        console.log(title);
-        console.log(description)
         if (userId && title && description) {
             const data: CreatePost = {
                 userId: parseInt(userId),
@@ -42,13 +42,14 @@ export function CreatePost() {
             <div>
                 <div className="grid grid-cols-3 gap-4">
                     <fieldset className="fieldset">
-                        <legend className="fieldset-legend">User Id</legend>
-                        <input type="number"
-                            min={1}
+                        <legend className="fieldset-legend">Select User</legend>
+                        <UserDropdown 
                             name="userId"
+                            className="select w-full"
                             required
-                            placeholder="User Id"
-                            className="input w-full" />
+                            selectedUser={selectedUser}
+                            onSelectedUserChange={setSelectedUser}
+                        />
                     </fieldset>
                     <fieldset className="fieldset">
                         <legend className="fieldset-legend">Title</legend>

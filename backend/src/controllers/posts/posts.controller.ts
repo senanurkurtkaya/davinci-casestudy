@@ -41,4 +41,7 @@ export class PostsController {
   delete(@Param("id", ParseIntPipe) id: number) {
     return this.postService.delete(id);
   }
+
+  // @Get(":id/posts")
+  
 }

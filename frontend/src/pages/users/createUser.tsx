@@ -53,6 +53,7 @@ export function CreateUser() {
                     className="input w-full" />
             </div>
             <div className="flex justify-end my-6" >
+                <button className="btn btn-soft btn-primary mr-4" onClick={() => navigate(-1)}>Back</button>
                 <button type="submit" className="btn btn-soft btn-primary ">Submit</button>
             </div>
         </form>

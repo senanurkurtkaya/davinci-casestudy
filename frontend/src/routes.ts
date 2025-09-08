@@ -7,6 +7,7 @@ import { NotFound } from "./pages/notFound/notFound";
 import { CreateUser } from "./pages/users/createUser";
 import { CreatePost } from "./pages/posts/createPost";
 import { User } from "./pages/users/user";
+import { UpdateUser } from "./pages/users/updateUser";
 
 export const routes = createBrowserRouter([
     {
@@ -15,30 +16,34 @@ export const routes = createBrowserRouter([
         children: [
             { index: true, Component: Home },
             {
-                path: "/users",
-                Component: Users
+                path: "/users/:id/update",
+                Component: UpdateUser
             },
             {
-                path:"/users/:id",
+                path: "/users/create",
+                Component: CreateUser
+            },
+            {
+                path: "/users/:id",
                 Component: User
+            },
+            {
+                path: "/users",
+                Component: Users
             },
             {
                 path: "/posts",
                 Component: Posts
             },
             {
-                path:"/user/create",
-                Component:CreateUser
-            },
-            {
-                path:"/post/create",
-                Component:CreatePost
+                path: "/post/create",
+                Component: CreatePost
             },
             {
                 path: "*",
                 Component: NotFound
             },
-            
+
         ]
     },
 ]);
