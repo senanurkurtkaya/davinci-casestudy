@@ -1,6 +1,7 @@
 import type { FormEvent, SyntheticEvent } from "react"
 import type { CreateUser } from "../../models/createUser";
 import { useNavigate } from "react-router";
+import { API_URL } from "../../constants";
 
 export function CreateUser() {
     const navigate = useNavigate();
@@ -19,7 +20,7 @@ export function CreateUser() {
                 name
             };
 
-            fetch("http://localhost:3000/users", {
+            fetch(`${API_URL}/users`, {
                 method: "post",
                 headers: {
                     "Content-Type": "application/json",
@@ -53,7 +54,7 @@ export function CreateUser() {
                     className="input w-full" />
             </div>
             <div className="flex justify-end my-6" >
-                <button className="btn btn-soft btn-primary mr-4" onClick={() => navigate(-1)}>Back</button>
+                <button className="btn btn-soft btn-primary mr-4" onClick={() => navigate("/users")}>Back</button>
                 <button type="submit" className="btn btn-soft btn-primary ">Submit</button>
             </div>
         </form>

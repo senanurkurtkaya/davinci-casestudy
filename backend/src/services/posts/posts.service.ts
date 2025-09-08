@@ -3,6 +3,7 @@ import { Post } from "src/models/post";
 import POSTS from "../../data/posts.json";
 import { PaginationResult } from "src/models/pagination.result";
 import { CreatePostDto } from "src/controllers/posts/dto/create.post.dto";
+import { UpdatePostDto } from "src/controllers/posts/dto/update.post.dto";
 
 @Injectable()
 export class PostsService {
@@ -44,6 +45,7 @@ export class PostsService {
         }
         return false;
     }
+    
 
     delete(id: number): boolean {
         const index = this.posts.findIndex(post => post.id == id);

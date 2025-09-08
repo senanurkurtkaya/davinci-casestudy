@@ -3,9 +3,11 @@ import { useNavigate } from "react-router"
 import type { CreatePost } from "../../models/createPost";
 import { UserDropdown } from "./components/userDropdown";
 import type { UserDropdownModel } from "../../models/userDropdownModel";
+import { API_URL } from "../../constants";
 
 export function CreatePost() {
     const navigate = useNavigate();
+    
     const [selectedUser, setSelectedUser] = useState<UserDropdownModel | undefined>();
 
     const handleSubmit = (e: FormEvent) => {
@@ -22,7 +24,7 @@ export function CreatePost() {
                 description
             };
 
-            fetch("http://localhost:3000/posts", {
+            fetch(`${API_URL}/posts`, {
                 method: "post",
                 headers: {
                     "Content-Type": "application/json"
@@ -43,7 +45,7 @@ export function CreatePost() {
                 <div className="grid grid-cols-3 gap-4">
                     <fieldset className="fieldset">
                         <legend className="fieldset-legend">Select User</legend>
-                        <UserDropdown 
+                        <UserDropdown
                             name="userId"
                             className="select w-full"
                             required
@@ -61,14 +63,15 @@ export function CreatePost() {
                     </fieldset>
                     <fieldset className="fieldset">
                         <legend className="fieldset-legend">Description</legend>
-                        <textarea className="w-full textarea h-24" 
-                        name="description"
-                        placeholder="Description"></textarea>
+                        <textarea className="w-full textarea h-24"
+                            name="description"
+                            placeholder="Description"></textarea>
                     </fieldset>
                 </div>
-                <div className="flex justify-end my-6" >
-                    <button type="submit" className="btn btn-soft btn-primary">Submit</button>
-                </div>
+              <div className="flex justify-end my-6" >
+                <button className="btn btn-soft btn-primary mr-4" onClick={() => navigate("/users")}>Back</button>
+                <button type="submit" className="btn btn-soft btn-primary ">Submit</button>
+            </div>
             </div>
         </form>
     </div>

@@ -1,6 +1,7 @@
 import { useEffect, useState, type ChangeEvent, type FormEvent } from "react";
 import { useNavigate, useParams } from "react-router"
 import type { UpdateUserModel } from "../../models/updateUser";
+import { API_URL } from "../../constants";
 
 export function UpdateUser() {
     const { id } = useParams();
@@ -12,7 +13,7 @@ export function UpdateUser() {
         e.preventDefault();
 
         if (user) {
-            fetch(`http://localhost:3000/users/${id}`, {
+            fetch(`${API_URL}/users/${id}`, {
                 method: "put",
                 headers: {
                     "Content-Type": "application/json",
@@ -42,12 +43,12 @@ export function UpdateUser() {
 
     useEffect(() => {
         if (id) {
-            fetch(`http://localhost:3000/users/${id}`)
+            fetch(`${API_URL}/users/${id}`)
                 .then(response => {
                     response.json().then(setUser)
                 })
                 .catch(() => {
-                    setHasError(true);                    
+                    setHasError(true);
                 })
         }
     }, [id]);
@@ -59,21 +60,24 @@ export function UpdateUser() {
     return <div>
         <form method="post" onSubmit={handleSubmit}><h3 className="text-xl mb-6">Update User #{id}</h3>
             <div className="grid grid-cols-3 gap-4">
-                <input type="email"
+                <input
+                    type="email"
                     name="email"
                     required
                     placeholder="Email"
                     className="input w-full"
                     value={user.email}
                     onChange={handleChange} />
-                <input type="text"
+                <input
+                    type="text"
                     name="username"
                     required
                     placeholder="User Name"
                     className="input w-full"
                     value={user.username}
                     onChange={handleChange} />
-                <input type="text"
+                <input
+                    type="text"
                     name="name"
                     required
                     placeholder="Name"
@@ -82,15 +86,27 @@ export function UpdateUser() {
                     onChange={handleChange} />
             </div>
             <div className="flex justify-end my-6" >
-                <button className="btn btn-soft btn-primary mr-4" onClick={() => navigate(-1)}>Back</button>
+                <button 
+                className="btn btn-soft btn-primary mr-4"
+                 onClick={() => navigate(-1)}>
+                    Back
+                    </button>
                 <button type="submit" className="btn btn-soft btn-primary ">Submit</button>
             </div>
-            {hasError && <div role="alert" className="alert alert-error">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            {hasError && (<div role="alert" className="alert alert-error">
+                <svg 
+                    xmlns="http://www.w3.org/2000/svg" 
+                    className="h-6 w-6 shrink-0 stroke-current"
+                     fill="none" 
+                     viewBox="0 0 24 24">
+                    <path 
+                    strokeLinecap="round"
+                    strokeLinejoin="round" 
+                    strokeWidth="2" 
+                    d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 <span>Error! An unexpected error occured. We will lookup for the issue.</span>
-            </div>}
+            </div>)}
         </form>
     </div>
 }

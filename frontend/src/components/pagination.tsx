@@ -41,7 +41,7 @@ export function Pagination(props: PaginationProps) {
     const handleNextClick = () => {
         if ((currentPage + 1) == pageCount) {
             return;
-        } 
+        }
 
         onNextClick();
     }

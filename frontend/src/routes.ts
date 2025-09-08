@@ -8,6 +8,8 @@ import { CreateUser } from "./pages/users/createUser";
 import { CreatePost } from "./pages/posts/createPost";
 import { User } from "./pages/users/user";
 import { UpdateUser } from "./pages/users/updateUser";
+import { UpdatePost } from "./pages/posts/updatePost";
+import { Post } from "./pages/posts/post";
 
 export const routes = createBrowserRouter([
     {
@@ -32,12 +34,20 @@ export const routes = createBrowserRouter([
                 Component: Users
             },
             {
-                path: "/posts",
-                Component: Posts
+                path: "/posts/:id/update",
+                Component: UpdatePost
             },
             {
-                path: "/post/create",
+                path: "/posts/create",
                 Component: CreatePost
+            },
+            {
+                path: "/posts/:id",
+                Component: Post
+            },
+            {
+                path: "/posts",
+                Component: Posts
             },
             {
                 path: "*",

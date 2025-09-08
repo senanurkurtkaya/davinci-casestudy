@@ -1,20 +1,20 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router"
-import type { User } from "../../models/user";
+import type { Post } from "../../models/post";
 import { API_URL } from "../../constants";
 
-export function User() {
+export function Post() {
     const navigate = useNavigate();
     const { id } = useParams();
-    const [user, setUser] = useState<User | undefined>();
+    const [post, setPost] = useState<Post | undefined>();
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         if (id) {
             setLoading(true);
-            fetch(`${API_URL}/users/${id}`)
-                .then(response => response.json().then(user => {
-                    setUser(user);
+            fetch(`${API_URL}/posts/${id}`)
+                .then(response => response.json().then(post => {
+                    setPost(post);
                     setLoading(false);
                 }));
         }
@@ -26,33 +26,34 @@ export function User() {
         </div>
     }
 
-    if (!user && !loading) {
-        return <div>User not found!</div>
+    if (!post && !loading) {
+        return <div>Post not found!</div>
     }
 
     return <div>
         <div className="w-full rounded-md bg-base-200 p-8 grid grid-cols-4 gap-4">
             <div>
                 <label className="mr-2 font-medium">Id:</label>
-                {user?.id}
+                {post?.id}
             </div>
 
             <div>
-                <label className="mr-2 font-medium">Email:</label>
-                {user?.email}
+                <label className="mr-2 font-medium">User Id:</label>
+                {post?.userId}
             </div>
-            
+
             <div>
-                <label className="mr-2 font-medium">Name:</label>
-                {user?.name}
+                <label className="mr-2 font-medium">Title:</label>
+                {post?.title}
             </div>
+
             <div>
-                <label className="mr-2 font-medium">Username:</label>
-                {user?.username}
+                <label className="mr-2 font-medium">Description:</label>
+                {post?.description}
             </div>
         </div>
         <div className="flex justify-end mt-6">
-            <button className="btn btn-soft btn-primary" onClick={() => navigate("/users")}>Back</button>
+            <button className="btn btn-soft btn-primary" onClick={() => navigate("/posts")}>Back</button>
         </div>
     </div>
 }
