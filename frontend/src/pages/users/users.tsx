@@ -85,12 +85,6 @@ export function Users() {
     dialogRef.current?.showModal();
   };
 
-  const closeModal = () => {
-    dialogRef.current?.close();
-    setToDelete(null);
-    setLoading(false);
-  };
-
   const confirmDelete = async () => {
     if (!toDelete) return;
 

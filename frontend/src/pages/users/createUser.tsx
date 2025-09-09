@@ -1,4 +1,4 @@
-import type { FormEvent, SyntheticEvent } from "react"
+import type { FormEvent } from "react"
 import type { CreateUser } from "../../models/createUser";
 import { useNavigate } from "react-router";
 import { API_URL } from "../../constants";
